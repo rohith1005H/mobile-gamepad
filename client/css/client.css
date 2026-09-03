@@ -86,8 +86,9 @@ body {
 }
 
 .shoulder--l2, .shoulder--r2 { color: var(--bone-dim); }
-.shoulder--l2 { clip-path: polygon(10% 0, 100% 0, 100% 100%, 0 100%); }
-.shoulder--r2 { clip-path: polygon(0 0, 90% 0, 100% 100%, 0 100%); }
+/* L1/R1 sit at the outer corners where the index fingers land; L2/R2 inboard. */
+.shoulder--l1 { clip-path: polygon(10% 0, 100% 0, 100% 100%, 0 100%); }
+.shoulder--r1 { clip-path: polygon(0 0, 90% 0, 100% 100%, 0 100%); }
 
 .shoulder span {
   position: relative;
@@ -150,14 +151,12 @@ body {
   --s: 0deg;      /* highlighted arc span */
 }
 
-/* The ring: faint compass with eight ticks; a bright arc follows the thumb. */
+/* The ring: a faint outline; a bright arc follows the thumb while it steers. */
 .dpad__ring {
   position: absolute;
   inset: 0;
   border-radius: 50%;
   border: 1px solid var(--line);
-  background:
-    repeating-conic-gradient(from -1.5deg, var(--line) 0 3deg, transparent 3deg 45deg);
   -webkit-mask: radial-gradient(circle, transparent 0 calc(50% - 7px), #000 calc(50% - 6px) 50%, transparent 51%);
           mask: radial-gradient(circle, transparent 0 calc(50% - 7px), #000 calc(50% - 6px) 50%, transparent 51%);
 }
