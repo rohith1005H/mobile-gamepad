@@ -1,5 +1,5 @@
 var config = require('../../config/config');
-var uinput = require('uinput');
+var uinput = require('uinput2');
 var fs = require('fs');
 var ioctl = require('ioctl');
 var Struct = require('struct');
