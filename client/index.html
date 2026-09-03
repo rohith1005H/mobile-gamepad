@@ -1,48 +1,70 @@
 <!DOCTYPE html>
-<html>
-
+<html lang="en">
 <head>
-  <title>Mobile gamepad</title>
-  <link rel="icon" type="image/png" href="/img/favicon_joystick_32.ico" />
-  <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
-  <link rel="manifest" href="manifest.json">
+  <meta charset="utf-8">
+  <title>RetroPie Pad</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
   <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="theme-color" content="#15171b">
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" type="image/png" href="/img/favicon_joystick_32.ico">
   <link rel="icon" sizes="128x128" href="/img/icon_joystick_128x128.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/client.css">
 </head>
-
 <body>
 
-  <div id="wrapper">
-    <div class="button_lt btn" id="btnLT" data-code="0x136"><h1>LT</h1></div>
-    <div class="button_lt2 btn" id="btnLT2" data-code="0x138"><h1>LT2</h1></div>
-    <div class="pad_number text"><div class="text" id="padText"></div></div>
-    <div class="button_rt2 btn" id="btnRT" data-code="0x139"><h1>RT2</h1></div>
-    <div class="button_rt btn" id="btnRT2" data-code="0x137"><h1>RT</h1></div>
-    <div class="joystick"><h1>JOYSTICK</h1></div>
-    <div class="buttons_menu_start">
-      <div class="button_select btn" id="btnSELECT" data-code="0x13a"><h1>SELECT</h1></div>
-      <div class="button_start btn" id="btnSTART" data-code="0x13b"><h1>START</h1></div>
-    </div>
-    <div class="buttons_right">
-      <div class="button_x btn" id="btnX" data-code="0x133"><h1>X</h1></div>
-      <div class="button_y btn" id="btnY" data-code="0x134"><h1>Y</h1></div>
-      <div class="button_a btn" id="btnA" data-code="0x130"><h1>A</h1></div>
-      <div class="button_b btn" id="btnB" data-code="0x131"><h1>B</h1></div>
-    </div>
-</div>
+  <main id="pad" aria-label="Gamepad">
 
-<div id="warning-message">
-    <h2>The gamepad is only viewable in landscape mode!</h2>
-</div>
-<div id="disconnect-message">
-    <h2>The gamepad is disconnected.</br>Click on the screen to connect again!</h2>
-</div>
+    <header class="deck">
+      <div class="shoulder shoulder--l2 key" role="button" data-code="0x138" aria-label="L2"><span>L2</span></div>
+      <div class="shoulder shoulder--l1 key" role="button" data-code="0x136" aria-label="L1"><span>L1</span></div>
+      <div class="status" id="status" role="status" data-state="connecting">
+        <span class="status__dot"></span>
+        <span class="status__text" id="statusText">Connecting</span>
+      </div>
+      <div class="shoulder shoulder--r1 key" role="button" data-code="0x137" aria-label="R1"><span>R1</span></div>
+      <div class="shoulder shoulder--r2 key" role="button" data-code="0x139" aria-label="R2"><span>R2</span></div>
+    </header>
 
-  <script src="/js/jquery-2.2.3.min.js"></script>
+    <section class="dpad" aria-label="Directional pad">
+      <div class="dpad__body" id="dpad">
+        <div class="dpad__ring"></div>
+        <div class="dpad__cross">
+          <span class="dpad__arm dpad__arm--up" data-dir="up"></span>
+          <span class="dpad__arm dpad__arm--right" data-dir="right"></span>
+          <span class="dpad__arm dpad__arm--down" data-dir="down"></span>
+          <span class="dpad__arm dpad__arm--left" data-dir="left"></span>
+          <span class="dpad__hub"></span>
+        </div>
+      </div>
+    </section>
+
+    <section class="middle">
+      <div class="pill key" role="button" data-code="0x13a">Select</div>
+      <div class="pill key" role="button" data-code="0x13b">Start</div>
+    </section>
+
+    <section class="face" aria-label="Face buttons">
+      <div class="face__body">
+        <div class="face__btn face__btn--x key" role="button" data-code="0x133" aria-label="X"><span>X</span></div>
+        <div class="face__btn face__btn--y key" role="button" data-code="0x134" aria-label="Y"><span>Y</span></div>
+        <div class="face__btn face__btn--a key" role="button" data-code="0x130" aria-label="A"><span>A</span></div>
+        <div class="face__btn face__btn--b key" role="button" data-code="0x131" aria-label="B"><span>B</span></div>
+      </div>
+    </section>
+
+  </main>
+
+  <div class="rotate" id="rotate" aria-hidden="true">
+    <div class="rotate__phone"></div>
+    <p>Turn your phone sideways</p>
+  </div>
+
   <script src="/js/socket.io-4.0.1.js"></script>
-  <script src="/js/nipplejs.min.js"></script>
   <script src="/js/client.js"></script>
-
 </body>
 </html>
