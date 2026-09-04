@@ -35,3 +35,5 @@ node_modules
 # Grunt public folder
 dist
 tmp
+
+__pycache__/
