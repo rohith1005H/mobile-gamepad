@@ -1,0 +1,42 @@
+<!-- EmulationStation mapping for the MobileGamePad virtual controller (DualSense layout).
+     Installed into ~/.emulationstation/es_input.cfg by install.sh; you do not need to run
+     EmulationStation's "Configure Input" wizard for this pad.
+
+     Button ids are SDL2 joystick indices: the pad's evdev key codes in ascending order
+     (0x130 Cross=0, 0x131 Circle=1, 0x133 Triangle=2, 0x134 Square=3, 0x136 L1=4,
+     0x137 R1=5, 0x138 L2=6, 0x139 R2=7, 0x13a Create=8, 0x13b Options=9, 0x13c PS=10,
+     0x13d L3=11, 0x13e R3=12). Axes: 0/1 left stick, 2/5 right stick, 3/4 trigger pull.
+     The D-pad is SDL hat 0 (up=1 right=2 down=4 left=8).
+
+     deviceGUID is what SDL 2.0.10 (RetroPie 4.8 on Buster) derives from bus 3, vendor 5,
+     product 5, version 2. Newer SDL adds a name checksum (0300c03e0500...); EmulationStation
+     falls back to matching on deviceName, so the block works either way. -->
+<inputConfig type="joystick" deviceName="MobileGamePad" deviceGUID="03000000050000000500000002000000">
+  <input name="up" type="hat" id="0" value="1"/>
+  <input name="right" type="hat" id="0" value="2"/>
+  <input name="down" type="hat" id="0" value="4"/>
+  <input name="left" type="hat" id="0" value="8"/>
+  <input name="a" type="button" id="1" value="1"/>
+  <input name="b" type="button" id="0" value="1"/>
+  <input name="x" type="button" id="2" value="1"/>
+  <input name="y" type="button" id="3" value="1"/>
+  <input name="leftshoulder" type="button" id="4" value="1"/>
+  <input name="rightshoulder" type="button" id="5" value="1"/>
+  <input name="pageup" type="button" id="4" value="1"/>
+  <input name="pagedown" type="button" id="5" value="1"/>
+  <input name="lefttrigger" type="button" id="6" value="1"/>
+  <input name="righttrigger" type="button" id="7" value="1"/>
+  <input name="select" type="button" id="8" value="1"/>
+  <input name="start" type="button" id="9" value="1"/>
+  <input name="hotkeyenable" type="button" id="8" value="1"/>
+  <input name="leftthumb" type="button" id="11" value="1"/>
+  <input name="rightthumb" type="button" id="12" value="1"/>
+  <input name="leftanalogup" type="axis" id="1" value="-1"/>
+  <input name="leftanalogdown" type="axis" id="1" value="1"/>
+  <input name="leftanalogleft" type="axis" id="0" value="-1"/>
+  <input name="leftanalogright" type="axis" id="0" value="1"/>
+  <input name="rightanalogup" type="axis" id="5" value="-1"/>
+  <input name="rightanalogdown" type="axis" id="5" value="1"/>
+  <input name="rightanalogleft" type="axis" id="2" value="-1"/>
+  <input name="rightanalogright" type="axis" id="2" value="1"/>
+</inputConfig>

@@ -2,7 +2,12 @@
 
 Mobile Universal Gamepad for RetroPie (http://mobilegamepad.net/)
 
-![MobilaGamepad](/other/resources/schema_mobilegamepad.png)
+Turns a phone's browser into a DualSense-style controller for a RetroPie box: face buttons,
+bumpers, analog triggers, two sticks, hat-switch D-pad, Create / Options / PS, and a touchpad that
+drives a mouse pointer. The Pi sees a real Linux gamepad (plus a mouse) through `uinput`, so
+EmulationStation, RetroArch and Kodi treat it like any USB pad.
+
+![MobileGamePad client](/other/resources/pad-ps5.png)
 
 # Quick installation and start
 
@@ -18,7 +23,7 @@ sudo apt-get install -y nodejs
 sudo npm install -g grunt-cli
 
 # Clone project MobileGamePad and install dependencies
-git clone https://github.com/sbidolach/mobile-gamepad.git
+git clone -b feat/ps5-pad https://github.com/rohith1005H/mobile-gamepad.git
 cd mobile-gamepad
 npm install
 
@@ -44,11 +49,20 @@ sudo pm2 save
 
 # RetroPie configuration
 
-* Copy config file
+One script installs the RetroArch autoconfig and the EmulationStation mapping, then restarts
+EmulationStation. Run it on the Pi as the user that runs EmulationStation:
 
 ```bash
-sudo cp /other/retropie/MobileGamePad.cfg /opt/retropie/configs/all/retroarch-joypads/
+bash other/retropie/install.sh
 ```
+
+In the menus the D-pad moves, **Circle** confirms, **Cross** goes back, **Create** opens the
+options popup and **Options** opens the main menu. In games Create is the hotkey: Create + Options
+exits, Create + Triangle opens the RetroArch menu, Create + L1 / R1 loads / saves state.
+
+Do not map this pad with EmulationStation's "Configure Input" wizard; it overwrites the RetroArch
+file with the wrong layout. Details, the Kodi notes and the full button table are in
+[other/retropie/README.md](other/retropie/README.md).
 
 # Install application on mobile phone
 
@@ -61,6 +75,11 @@ sudo cp /other/retropie/MobileGamePad.cfg /opt/retropie/configs/all/retroarch-jo
 ![Standalone installation step 1](/other/resources/screenshot_add_home_screen.png)
 ![Standalone installation step 2](/other/resources/screenshot_add_title.png)
 ![Standalone installation step 3](/other/resources/screenshot_add_icon.png)
+
+# Tests
+
+Everything runs off the Pi: a unit test for the uinput server logic and a headless-Chrome
+end-to-end test that drives the real client against a mock Pi. See [test/README.md](test/README.md).
 
 # Additional tools
 
@@ -92,8 +111,6 @@ sudo input-kbd [number]
 
 # TODO
 
-- Simulate mouse (Z Axis, Rotate Z Axis) by moving mobile phone (for Quake, etc.) [In progress]
-- Add second joystick (Z Axis, Rotate Z Axis) to move mouse (for Quake, etc.)
 - Add simple KODI or other installation package
 - Integrate gamepad with LaunchBox
 
