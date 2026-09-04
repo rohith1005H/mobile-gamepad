@@ -6,32 +6,39 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="theme-color" content="#15171b">
   <link rel="manifest" href="manifest.json">
   <link rel="icon" type="image/png" href="/img/favicon_joystick_32.ico">
-  <link rel="icon" sizes="128x128" href="/img/icon_joystick_128x128.png">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="icon" sizes="192x192" href="/img/icon_pad_192.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/img/icon_pad_180.png">
   <link rel="stylesheet" href="css/client.css">
 </head>
 <body>
 
   <main id="pad" aria-label="Gamepad">
 
+    <!-- Shoulder deck: analog triggers at the corners, bumpers inboard, Create/Options in the middle. -->
     <header class="deck">
-      <div class="shoulder shoulder--l1 key" role="button" data-code="0x136" aria-label="L1"><span>L1</span></div>
-      <div class="shoulder shoulder--l2 key" role="button" data-code="0x138" aria-label="L2"><span>L2</span></div>
-      <div class="status" id="status" role="status" data-state="connecting">
-        <span class="status__dot"></span>
-        <span class="status__text" id="statusText">Connecting</span>
+      <div class="trigger trigger--l2 axis" id="l2" data-axis="0x03" data-code="0x138" role="slider" aria-label="L2 trigger" aria-valuemin="0" aria-valuemax="255" aria-valuenow="0" tabindex="0">
+        <span class="trigger__fill"></span><span class="trigger__label">L2</span>
       </div>
-      <div class="shoulder shoulder--r2 key" role="button" data-code="0x139" aria-label="R2"><span>R2</span></div>
-      <div class="shoulder shoulder--r1 key" role="button" data-code="0x137" aria-label="R1"><span>R1</span></div>
+      <div class="shoulder shoulder--l1 key" role="button" tabindex="0" data-code="0x136" aria-label="L1"><span class="cap">L1</span></div>
+
+      <div class="sys">
+        <div class="pill key" role="button" tabindex="0" data-code="0x13a" aria-label="Create"><span class="cap">Create</span></div>
+        <div class="pill key" role="button" tabindex="0" data-code="0x13b" aria-label="Options"><span class="cap">Options</span></div>
+      </div>
+
+      <div class="shoulder shoulder--r1 key" role="button" tabindex="0" data-code="0x137" aria-label="R1"><span class="cap">R1</span></div>
+      <div class="trigger trigger--r2 axis" id="r2" data-axis="0x04" data-code="0x139" role="slider" aria-label="R2 trigger" aria-valuemin="0" aria-valuemax="255" aria-valuenow="0" tabindex="0">
+        <span class="trigger__fill"></span><span class="trigger__label">R2</span>
+      </div>
     </header>
 
-    <section class="dpad" aria-label="Directional pad">
-      <div class="dpad__body" id="dpad">
+    <!-- Left side: D-pad high and outboard, left stick low and inboard (DualSense placement). -->
+    <section class="side side--left">
+      <div class="dpad" id="dpad" aria-label="Directional pad">
         <div class="dpad__ring"></div>
         <div class="dpad__cross">
           <span class="dpad__arm dpad__arm--up" data-dir="up"></span>
@@ -41,30 +48,56 @@
           <span class="dpad__hub"></span>
         </div>
       </div>
+      <div class="stick" id="lstick" data-x="0x00" data-y="0x01" data-click="0x13d" aria-label="Left stick, tap to click L3">
+        <span class="stick__well"></span>
+        <span class="stick__knob"><span class="stick__cap">L3</span></span>
+      </div>
     </section>
 
-    <section class="middle">
-      <div class="pill key" role="button" data-code="0x13a">Select</div>
-      <div class="pill key" role="button" data-code="0x13b">Start</div>
+    <!-- Centre: touchpad, connection status, PS button. -->
+    <section class="centre">
+      <div class="touchpad" id="touchpad" aria-label="Touchpad, drag to move the pointer, tap to click">
+        <span class="touchpad__grid"></span>
+        <span class="touchpad__hint">touchpad</span>
+      </div>
+      <div class="status" id="status" role="status" data-state="connecting">
+        <span class="status__dot"></span>
+        <span class="status__text" id="statusText">Connecting</span>
+      </div>
+      <div class="ps key" role="button" tabindex="0" data-code="0x13c" aria-label="PS"><span class="cap">PS</span></div>
     </section>
 
-    <section class="face" aria-label="Face buttons">
-      <div class="face__body">
-        <div class="face__btn face__btn--x key" role="button" data-code="0x133" aria-label="X"><span>X</span></div>
-        <div class="face__btn face__btn--y key" role="button" data-code="0x134" aria-label="Y"><span>Y</span></div>
-        <div class="face__btn face__btn--a key" role="button" data-code="0x130" aria-label="A"><span>A</span></div>
-        <div class="face__btn face__btn--b key" role="button" data-code="0x131" aria-label="B"><span>B</span></div>
+    <!-- Right side: right stick low and inboard, face buttons high and outboard. -->
+    <section class="side side--right">
+      <div class="stick" id="rstick" data-x="0x02" data-y="0x05" data-click="0x13e" aria-label="Right stick, tap to click R3">
+        <span class="stick__well"></span>
+        <span class="stick__knob"><span class="stick__cap">R3</span></span>
+      </div>
+      <div class="face" aria-label="Face buttons">
+        <div class="face__btn face__btn--tri key" role="button" tabindex="0" data-code="0x133" aria-label="Triangle">
+          <span class="cap"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4.5 20.5 19.5H3.5Z"/></svg></span>
+        </div>
+        <div class="face__btn face__btn--sq key" role="button" tabindex="0" data-code="0x134" aria-label="Square">
+          <span class="cap"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="5" width="14" height="14" rx="1.5"/></svg></span>
+        </div>
+        <div class="face__btn face__btn--circ key" role="button" tabindex="0" data-code="0x131" aria-label="Circle">
+          <span class="cap"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="7.5"/></svg></span>
+        </div>
+        <div class="face__btn face__btn--cross key" role="button" tabindex="0" data-code="0x130" aria-label="Cross">
+          <span class="cap"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5.5 5.5 18.5 18.5M18.5 5.5 5.5 18.5"/></svg></span>
+        </div>
       </div>
     </section>
 
   </main>
 
-  <div class="rotate" id="rotate" aria-hidden="true">
+  <div class="rotate" id="rotate" role="status">
     <div class="rotate__phone"></div>
     <p>Turn your phone sideways</p>
   </div>
 
   <script src="/js/socket.io-4.0.1.js"></script>
+  <script src="/js/nosleep-media.js"></script>
   <script src="/js/client.js"></script>
 </body>
 </html>
